@@ -1,0 +1,30 @@
+{
+  "name": "pegion-chat",
+  "version": "1.0.0",
+  "description": "\"# pegion-chat\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saifxd7/pegion-chat.git"
+  },
+  "author": "Saif",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/saifxd7/pegion-chat/issues"
+  },
+  "homepage": "https://github.com/saifxd7/pegion-chat#readme",
+  "dependencies": {
+    "@withvoid/make-validation": "^1.0.5",
+    "dotenv": "^10.0.0",
+    "dynamoose": "^2.8.3",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
