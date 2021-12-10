@@ -1,30 +1,4 @@
-const { User } = require('../models/user');
-const { Room } = require('../models/room');
 const dynamoose = require('dynamoose');
-
-module.exports = {
-    MESSAGE_TYPE: {
-        TYPE_TEXT: 'text',
-        TYPE_PHOTO: 'photo',
-        TYPE_VIDEO: 'video',
-        TYPE_VOICE: 'voice'
-    }
-}  
-    
-
-const readByRecipientSchema = new dynamoose.Schema(
-    {
-        id: false,
-        readByUserId: String,
-        readAt: {
-            type: Date,
-            default: Date.now(),
-        },
-    },
-    {
-        timestamps: false,
-    }
-);
 
 const schema = new dynamoose.Schema({
     id: {
@@ -33,12 +7,12 @@ const schema = new dynamoose.Schema({
         required: true,
     },
     room_id: {
-        type: Object,
-        schema: Room
-    },
-    message_type: {
         type: String,
-        default: () => MESSAGE_TYPE.TYPE_TEXT,
+        required: true
+    },
+    type: {
+        type: String,
+        default: "text",
     },
     message_content: {
         type: String,
@@ -47,16 +21,24 @@ const schema = new dynamoose.Schema({
     parent_message: dynamoose.THIS,
     postByUser: {
         type: String,
-        schema: User,
         required: true
     },
     readByRecipents: {
         type: Array,
-        schema: [readByRecipientSchema]
+        schema: [{
+            type: Object,
+            schema: {
+                readByUserId: String,
+                readAt: {
+                    type: Date,
+                    default: Date.now(),
+                },
+            }
+        }]
     },
     sent: {
         type: Boolean,
-        default: true
+        default: false
     },
     delivered: {
         type: Boolean,

@@ -1,13 +1,5 @@
-const { User } = require('../models/user');
-// const { Message } = require('../models/message');
 const dynamoose = require('dynamoose');
 
-const ROOM_TYPES = {
-    TYPE_PRIVATE: "private",
-    TYPE_GROUP: "group",
-}
-
-module.exports = { ROOM_TYPES }
 
 const schema = new dynamoose.Schema({
     id: {
@@ -21,7 +13,9 @@ const schema = new dynamoose.Schema({
     },
     members: {
         type: Array,
-        schema: [String],
+        schema: [{
+            type: String
+        }],
         required: true,
     },
     admin: {
@@ -30,7 +24,12 @@ const schema = new dynamoose.Schema({
     },
     messages: {
         type: Array,
-        schema: [Object],
+        schema: [{
+            type: Object,
+            schema: {
+                message_id: String,
+            }
+        }],
     },
     archived: {
         type: Boolean,
